@@ -1,4 +1,4 @@
-# Lab 3: Authenticating the cart's sensor inputs
+# Embodied AI Lab: Securing an Embodied Agent with Authentication
 
 ## Group information
 
