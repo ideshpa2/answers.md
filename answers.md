@@ -12,9 +12,8 @@
 - Ollama: server version 0.30.3 on the host at `http://127.0.0.1:11434`, model
   `qwen2.5vl:3b`. Settings: temperature 0, seed 7, `num_predict=160`, 90 s
   timeout.
-- Code: commit `f72f260` on branch `AASHIR/lab3-authentication`. We did
-  Parts 0–4 (CSE 494).
-
+- Code: commit f72f260 on branch AASHIR/lab3-authentication.
+  
 ## 0. Baseline (required, ungraded)
 
 We ran the baseline with the real sensors and saved the ROS graph while the
