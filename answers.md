@@ -242,10 +242,3 @@ time: never authenticated, 0 messages, `missing_distance`, and `STOP`.
 | `secure_attack-20261019T100231Z-6bf87b7b` | 46 | 45 | 45 |
 | `secure_attack-20261019T100257Z-5bd033f4` | 15 | 14 | 14 |
 | `secure_attack-20261019T100323Z-ebff853c` | 16 | 15 | 16 |
-
-## Note on graph capture
-
-We added an optional `CAPTURE_ROS_GRAPH` setting to `scripts/run_scenario.sh`.
-It saves the `ros2 node list` and `ros2 topic info -v` output while the run is
-still going. It doesn't change the sensors, the model, the cart or the
-evaluator.
