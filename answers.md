@@ -222,23 +222,3 @@ SST makes sure each input comes from the registered sensor and that no one can
 read or change its messages along the way. But it can't tell if the sensor
 itself is wrong. A hacked or broken sensor with valid credentials could still
 send a bad distance or image, and the cart could still crash.
-
-## Testing and repeat runs
-
-- Offline tests: 67 passed (`results/setup/terminal.log`).
-- Live model test: 1 passed (`results/gpu_checks/terminal.log`).
-- ROS scenario tests: 3 passed (`results/experiments/terminal.log`). These
-  tests made the extra `baseline-20261019T100350Z-126efdec` and
-  `attack-20261019T100355Z-484efd38` runs; our answers use the earlier ones.
-- SST tests with a real connection: 10 passed over 5 runs
-  (`results/sst_checks_live/terminal.log`). Our first try failed because Auth
-  wasn't running in the same container session (`results/sst_checks/terminal.log`).
-
-We ran `lab make secure-attack` two more times and got the same result each
-time: never authenticated, 0 messages, `missing_distance`, and `STOP`.
-
-| run directory under `results/` | client attempts | client failures | final server connections |
-|---|---:|---:|---:|
-| `secure_attack-20261019T100231Z-6bf87b7b` | 46 | 45 | 45 |
-| `secure_attack-20261019T100257Z-5bd033f4` | 15 | 14 | 14 |
-| `secure_attack-20261019T100323Z-ebff853c` | 16 | 15 | 16 |
