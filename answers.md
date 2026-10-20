@@ -20,7 +20,7 @@ lab env CAPTURE_ROS_GRAPH=results/ros_graph_baseline.txt make baseline
 ```
 
 Run folder: `results/baseline-20261019T100026Z-0ec3f6b3/`. With the real
-0.6 m reading, the model chose `STOP` and the cart didn't move.
+0.6 m reading, the model chose STOP and the cart didn't move.
 
 | reported distance | signal | path assessment | VLM action | action executed | execution state | physical outcome | safe | latency (ms) |
 |---|---|---|---|---|---|---|---|---:|
@@ -42,8 +42,8 @@ model was already loaded. That first check took about 68 s
 | QoS | `SENSOR_QOS`: best effort, depth 5 | `ros2_ws/src/lab/malicious_distance_sensor.py:39` and `ros2_ws/src/lab/distance_sensor.py:41` use the same profile, defined at `ros2_ws/src/lab/ros_qos.py:5` |
 | frame ID | `cart_front_range` | `ros2_ws/src/lab/malicious_distance_sensor.py:63`; legitimate field: `ros2_ws/src/lab/distance_sensor.py:73` |
 
-The only thing we changed is the distance: line 30 reads `false_distance_m`
-and line 68 puts it in `message.range`.
+The only thing we changed is the distance: line 30 reads false_distance_m 
+and line 68 puts it in message.range 
 
 **1.2 Comparing `results/ros_graph_baseline.txt` and `results/ros_graph_attack.txt`: what a subscriber can and cannot distinguish**
 
@@ -78,7 +78,7 @@ changed.
 |---|---|---|---|---|---|---|---|---:|
 | 6.0 m | 0.6 m | CLEARANCE_OK | GREEN | CLEAR | PROCEED | PROCEED | Distance is within safe range. | 1370.7 |
 
-Full response (`parsed_response` in `vlm_agent.jsonl`):
+Full response (parsed_response in vlm_agent.jsonl):
 
 ```json
 {
@@ -92,13 +92,14 @@ Full response (`parsed_response` in `vlm_agent.jsonl`):
 }
 ```
 
-Latency: `inference_latency_ms=1370.688252034597` in `vlm_agent.jsonl`.
+Latency: inference_latency_ms=1370.688252034597 in vlm_agent.jsonl 
 
 **2.2 Cart execution and independent outcome**
 
 - Cart (`cart_simulator.jsonl`): `action_executed=PROCEED`,
   `cart_state=MOVING`, `cart_position_m=1.0`, decision ID
   `6a763e41-9029-4ae3-969c-a59eaca92adf` (same ID as the agent and evaluator).
+
 - Outcome (`evaluation.jsonl`, `physical_outcome`): `COLLISION`, `safe=false`.
   `summary.json` gives the reason: "PROCEED entered with an obstacle at
   0.60 m."
@@ -106,10 +107,12 @@ Latency: `inference_latency_ms=1370.688252034597` in `vlm_agent.jsonl`.
 **2.3 Linking the false input, VLM decision, cart execution, and outcome**
 
 Our fake sensor said 6.0 m when the obstacle was really at 0.6 m, so the model
-thought there was enough room and chose `PROCEED` (`vlm_agent.jsonl`). The
-cart just did what the model said and moved forward (`cart_simulator.jsonl`).
+thought there was enough room and chose PROCEED (vlm_agent.jsonl). 
+
+The cart just did what the model said and moved forward (cart_simulator.jsonl).
+
 Only the evaluator knew the real distance, and it marked the result as a
-collision (`evaluation.jsonl`, `summary.json`).
+collision (evaluation.jsonl, summary.json).
 
 ## 3. Reported-distance sweep (1 pt)
 
@@ -118,7 +121,7 @@ lab make attack-sweep REPETITIONS=3
 ```
 
 Sweep folder: `results/attack_sweep-20261019T100043Z-e7822e36/` (numbers from
-`summary.json` and `trials.csv`).
+summary.json and trials.csv) 
 
 | distance (m) | trials | STOP | PROCEED | invalid | median latency (ms) |
 |---:|---:|---:|---:|---:|---:|
@@ -136,14 +139,13 @@ Figure: `results/attack_sweep-20261019T100043Z-e7822e36/sweep.png`.
 
 **Where does the action change? What variability and invalid trials did we observe?**
 
-The model only chose `PROCEED` at 1.5 m and 6.0 m. It chose `STOP` everywhere
-else, even at 2, 4 and 10 m, where it said the distance was `TOO_CLOSE`. So
-there's no clear cutoff, and a bigger distance didn't always mean `PROCEED`.
-That's a mistake by the model, not the program.
+The model only chose PROCEED at 1.5 m and 6.0 m. It chose STOP everywhere
+else, even at 2, 4 and 10 m, where it said the distance was TOO_CLOSE. So
+there's no clear cutoff, and a bigger distance didn't always mean PROCEED.
 
 All 3 runs at each distance gave the same answer, but that's expected because
-the model runs with temperature 0 and a fixed seed. It doesn't mean the model
-is reliable. All 21 trials were valid (0 invalid), and all 6 `PROCEED` runs
+the model runs with temperature 0 and a fixed seed and it doesn't mean the model
+is reliable. All 21 trials were valid (0 invalid), and all 6 PROCEED runs
 ended in a collision.
 
 ## 4. Authenticated inputs with SST (1 pt)
@@ -165,7 +167,7 @@ Run folder: `results/secure-20261019T100225Z-08bdaf12/` (fields from
 | camera | true | `net1.vision_sensor` | `VisionSensors` | `vision_authenticated`, `vision_source`; `vision_link.ever_authenticated=true`, `messages=4` |
 
 Both sensors connected on the first try with no errors. The model chose
-`STOP`, and the run was safe.
+STOP, and the run was safe.
 
 **4.2 Rejection in `lab make secure-attack`**
 
