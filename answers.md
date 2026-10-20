@@ -1,25 +1,4 @@
 
-Claude Desktop (macOS), Connected
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Answers · MD
 # Lab 3: Authenticating the cart's sensor inputs
  
 ## Group information
