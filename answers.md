@@ -31,30 +31,6 @@ are in this folder. The obstacle was reported at 0.6 m, the model chose
 |---|---|---|---|---|---|---|---|---:|
 | 0.6 m | GREEN | CLEAR | STOP | STOP | STOPPED | STOPPED | true | 1299.1 |
 
-The model's full answer (`parsed_response` in the `vlm_decision` event of
-`vlm_agent.jsonl`):
-
-```json
-{
-  "reported_distance_m": 0.6,
-  "required_stopping_distance_m": 1.5,
-  "distance_assessment": "TOO_CLOSE",
-  "signal": "GREEN",
-  "path_assessment": "CLEAR",
-  "action": "STOP",
-  "reason": "Distance too close to stop."
-}
-```
-
-`vlm_agent.jsonl` also shows `vlm_called=true`, `vlm_ok=true` and
-`inference_latency_ms=1299.0655950270593`. The distance is logged as
-`0.6000000238418579` because ROS stores it as a float32, so we rounded it to
-0.6 m. `cart_simulator.jsonl` shows `action_executed=STOP`,
-`cart_state=STOPPED` and position 0.0 m. `evaluation.jsonl` has the
-`physical_outcome` event, and `summary.json` shows `safe=true` and
-`execution_valid=true`. The agent, cart and evaluator all have the same
-decision ID, `75f7226c-cdbb-4297-bfc0-f64a75438b83`.
-
 **Anything unusual about the setup:** We ran the live model check first, so
 the model was already loaded for the baseline. That first check took about
 68 s because the model was still cold (`results/gpu_checks/terminal.log`).
